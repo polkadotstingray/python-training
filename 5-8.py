@@ -20,3 +20,4 @@ def img_tag(**arg):
 imgString = img_tag(src="/path/to/img.jpg", width=100, height=100, alt="image")
 print(imgString)
 
+print("aaaaaa")
