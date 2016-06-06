@@ -1,3 +1,4 @@
+# TEST TEST
 def foo(a, b, *vals):  # *をつければ引数の数を上限なしにタプルとして作れる
     print(a, b, vals)
 
