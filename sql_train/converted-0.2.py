@@ -15,7 +15,7 @@ def count_bracket(str, func, arg=1):    # 対象文字列と対象となる関�
     while cnt != 0:                     # ADD_MONTHS()が閉じていない限りループ
         if cnt == 1:  # 第一引数と第二引数の境界条件で,を探す
             # print(sentence)
-            conma.append(sentence.index(",", i))
+            conma.append(sentence.find(",", i))
         bra = sentence.find("(", i)     # ADD_MONTHS以降で(を探す
         cket = sentence.find(")", i)    # ADD_MONTHS以降で)を探す
         if bra == -1:                   # ADD()で終わりのパターン
