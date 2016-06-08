@@ -30,7 +30,7 @@ def count_bracket(str, func):           # 対象文字列と対象となる関�
         if cnt == 1:  # 第一引数と第二引数の境界条件で,を探す
             conma = sentence.index(",", i)
     else:
-        converted = str[:str.index(func)] + "DATEADD ( month, " + str[conma + 2:cket] + ", " \
+        converted = str[:str.index(func)] + "DATEADD (month, " + str[conma + 2:cket] + ", " \
                     + str[str.index(func) + len(func):conma] + str[cket:]
         return converted
 
