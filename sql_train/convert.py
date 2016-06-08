@@ -45,7 +45,7 @@ for file in glob.glob('*.sql'):  # .sqlのファイルをリストにしてfile�
 
     if sentence.find("ADD_MONTHS(") == -1:  # "ADD_MONTHS(がないものは操作対象外とする
         print("file : '" + file + "' has not " + "ADD_MONTHS(")
-        break
+        continue
     w = open("./converted/" + file, "w")  # ./converted/に空のファイルを作成
     w.write(count_bracket(sentence, "ADD_MONTHS("))  # 内容補充
     w.close()
