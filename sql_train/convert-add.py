@@ -7,7 +7,7 @@ os.mkdir('converted')  # ディレクトリを作る
 # ADD以降の()の数を数えて内部を区切る
 def count_bracket(str, func):           # 対象文字列と対象となる関数
     cnt = 1                             # (があれば+1,)があれば-1。cnt = 0の時ADD_MONTHSは終了
-    i = str.index(func) + len(func)           # 関数の開始位置
+    i = str.index(func) + len(func)     # 関数の開始位置
     bra = 0                             # (のindex
     cket = 0                            # )のindex
     conma = 0                           # ,のindex
