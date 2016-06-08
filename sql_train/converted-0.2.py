@@ -14,22 +14,22 @@ def count_bracket(str, func, arg=1):    # 対象文字列と対象となる関�
 
     while cnt != 0:                     # ADD_MONTHS()が閉じていない限りループ
         if cnt == 1:  # 第一引数と第二引数の境界条件で,を探す
-            print(sentence)
+            # print(sentence)
             conma.append(sentence.index(",", i))
         bra = sentence.find("(", i)     # ADD_MONTHS以降で(を探す
         cket = sentence.find(")", i)    # ADD_MONTHS以降で)を探す
         if bra == -1:                   # ADD()で終わりのパターン
             i = cket + 1
             cnt -= 1
-            print("p1")
+            # print("p1")
         elif bra < cket:                # ADD(())のパターン
             i = bra + 1
             cnt += 1
-            print("p2")
+            # print("p2")
         elif bra > cket:                # )()のパターン※2週目以降に出てくる可能性アリ
             i = cket + 1
             cnt -= 1
-            print("p3")
+            # print("p3")
         else:
             print("impossible")
 
@@ -47,6 +47,7 @@ def count_bracket(str, func, arg=1):    # 対象文字列と対象となる関�
             return pre, str[str.index(func) + len(func):conma[0]], str[conma[0] + 1:conma[1]], \
                    str[conma[1] + 1:cket], post
 
+z = open("./converted/logfile", "a")
 functions = ["ADD_MONTHS(", "SUBSTR(", "SUBSTRING("]
 # 各関数ごとにでループを回す
 # print(sentence)
@@ -66,10 +67,11 @@ for file in glob.glob('*.sql*'):  # .sqlのファイルをリストにしてfile
                 w = open("./converted/" + file, "w")  # ./converted/に空のファイルを作成
                 pre, arg1, arg2, post = count_bracket(sentence, func, 2)
                 sentence = pre + "DATEADD (month, " + arg2 + ", " + arg1 + post
-                print("ADD")
+                # print("ADD")
                 w.write(sentence)  # 内容補充
                 w.close()
-
+            else:
+                z.writelines(file)
         elif func == "SUBSTR(":
             while sentence.find(func) != -1:
                 if sentence.find(func) == -1:  # "ADD_MONTHS(がないものは操作対象外とする
@@ -77,10 +79,12 @@ for file in glob.glob('*.sql*'):  # .sqlのファイルをリストにしてfile
                     continue
                 w = open("./converted/" + file, "w")  # ./converted/に空のファイルを作成
                 pre, arg1, arg2, post = count_bracket(sentence, func, 2)
-                print("SUB1")
+                # print("SUB1")
                 sentence = pre + "SUBSTRING (" + arg1 + ", 1, " + arg2 + post
                 w.write(sentence)  # 内容補充
                 w.close()
+            else:
+                z.writelines(file)
 
         elif func == "SUBSTRING(":
             while sentence.find(func) != -1:
@@ -89,10 +93,17 @@ for file in glob.glob('*.sql*'):  # .sqlのファイルをリストにしてfile
                     continue
                 w = open("./converted/" + file, "w")  # ./converted/に空のファイルを作成
                 pre, arg1, post = count_bracket(sentence, func)
-                print("SUB2")
-                sentence = pre + "SUBSTRING (" + arg1 + ", 1, 4" + post  # あとで修正
+                # print("SUB2")
+                set2 = arg1.index("FROM")
+                set3 = arg1.index("FOR")
+                sentence = pre + "SUBSTRING (" + arg1[:arg1.index("FROM")] + "," + arg1[set2 + 4:set3] + \
+                           "," + arg1[set3 + 3:] + post  # あとで修正
                 w.write(sentence)  # 内容補充
                 w.close()
+            else:
+                z.writelines(file)
+else:
+    z.close()
 
 
 
