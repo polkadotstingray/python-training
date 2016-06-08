@@ -38,7 +38,7 @@ def count_bracket(str, func):           # 対象文字列と対象となる関�
 # print(sentence)
 # print(count_bracket(sentence, "ADD_MONTHS("))
 for file in glob.glob('*.sql'):  # .sqlのファイルをリストにしてfileに一個づつ入れる
-    print(file + "is converting now ...")
+    print(file + " is converting now ...")
     f = open(file, "r")
     sentence = f.read()
     f.close()
@@ -47,6 +47,7 @@ for file in glob.glob('*.sql'):  # .sqlのファイルをリストにしてfile�
         print("file : '" + file + "' has not " + "ADD_MONTHS(")
         continue
     w = open("./converted/" + file, "w")  # ./converted/に空のファイルを作成
+    print("a")
     w.write(count_bracket(sentence, "ADD_MONTHS("))  # 内容補充
     w.close()
 
